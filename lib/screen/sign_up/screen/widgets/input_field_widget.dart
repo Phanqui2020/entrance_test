@@ -35,6 +35,7 @@ class _InputFieldWidgetState extends State<InputFieldWidget> {
     return SizedBox(
       width: double.infinity,
       child: TextFormField(
+        onChanged: widget.onTextChange,
         obscureText: isShowText,
         validator: widget.onValidationText,
         cursorColor: const Color(0xFF647FFF),

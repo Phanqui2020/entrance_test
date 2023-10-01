@@ -1,8 +1,10 @@
 import 'package:entrance_test/Utils/app_text_style.dart';
+import 'package:entrance_test/route/routes_map.dart';
 import 'package:entrance_test/screen/categories/screen/categories_screen.dart';
 import 'package:entrance_test/screen/sign_up/controller/sign_up_controller.dart';
 import 'package:entrance_test/screen/sign_up/screen/widgets/confirm_age_widget.dart';
 import 'package:entrance_test/screen/sign_up/screen/widgets/input_field_widget.dart';
+import 'package:entrance_test/screen/sign_up/screen/widgets/password_status_text_widget.dart';
 import 'package:entrance_test/screen/sign_up/screen/widgets/privacy_text_widget.dart';
 import 'package:entrance_test/widget/enable_widget.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +43,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
         child: Form(
           key: _controller.signupFormKey,
-          child: Column(
+          child: ListView(
+            physics: const ClampingScrollPhysics(),
             children: [
               const SizedBox(
                 width: double.infinity,
@@ -65,8 +68,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     InputFieldWidget(
                       hintText: "Your email",
                       controller: _controller.emailController,
-                      onTextChange: (value) {},
-                      onValidationText: (value) => _controller.emailValidator(value),
+                      onTextChange: (value) {
+                        _controller.isEnable();
+                      },
+                      onValidationText: (value) =>
+                          _controller.emailValidator(value),
                     ),
                     const SizedBox(
                       height: 10,
@@ -74,9 +80,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     InputFieldWidget(
                         hintText: "Your password",
                         controller: _controller.passwordController,
-                        onTextChange: (value) {},
-                        onValidationText: (value) => _controller.passwordValidator(value),
+                        onTextChange: (value) {
+                          _controller.isEnable();
+                          _controller.passwordStrength();
+                        },
+                        onValidationText: (value) =>
+                            _controller.passwordValidator(value),
                         secureText: true),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Obx(
+                        () => PasswordStatusTextWidget(
+                          text: _controller.textPasswordStatus.value,
+                          textStyle: AppTextStyle.bodySmall
+                              .copyWith(color: _controller.getColorText()),
+                        ),
+                      ),
+                    ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -106,19 +129,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 .copyWith(fontWeight: FontWeight.w500),
                           ),
                         ),
-                        GetBuilder<SignUpController>(
-                          builder: (controller) {
+                        Obx(
+                          () {
                             return EnableWidget(
-                              enable: true,
+                              enable: _controller.isEnableNext.value,
                               child: GestureDetector(
-                                onTap: () => Get.to(const CategoriesScreen()),
-                                // onTap: () => _controller.login(),
+                                // onTap: () => Get.toNamed(categories),
+                                onTap: () => _controller.signUp(),
                                 child: Container(
                                   padding: const EdgeInsets.all(20),
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      border:
-                                      Border.all(color: const Color(0xFF647FFF))),
+                                      border: Border.all(
+                                          color: const Color(0xFF647FFF))),
                                   child: const Image(
                                       image: AssetImage(
                                           "assets/images/arrow_sign_in.png")),

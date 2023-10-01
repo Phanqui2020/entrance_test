@@ -7,10 +7,14 @@ const String signUp = '/sign_up';
 const String categories = '/categories';
 
 final routesMap = [
-  GetPage(name: signUp, page: () => const SignUpScreen()),
+  GetPage(
+      name: signUp,
+      page: () => const SignUpScreen(),
+      transition: Transition.rightToLeftWithFade,
+      transitionDuration: const Duration(milliseconds: 500)),
   GetPage(
       name: categories,
       page: () => const CategoriesScreen(),
-      transition: Transition.leftToRightWithFade,
-      transitionDuration: const Duration(milliseconds: 300)),
+      transition: Transition.rightToLeftWithFade,
+      transitionDuration: const Duration(milliseconds: 500)),
 ];

@@ -19,10 +19,6 @@ class SignInRepository {
         }else {
           responseModel = null;
         }
-        return responseModel;
-      }).catchError((onError) {
-        print(onError);
-        return null;
       });
       return responseModel;
     }catch (e){

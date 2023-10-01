@@ -20,14 +20,14 @@ class Apis {
     return http.post(
       Uri.parse(ApiUrls.baseUrl + url),
       body: body,
-      headers: accessToken == null ? defaultHeader : {HttpHeaders.authorizationHeader: 'Bearer $accessToken'},
+      headers: accessToken == null ? null : {HttpHeaders.authorizationHeader: 'Bearer $accessToken'},
     ).timeout(const Duration(minutes: 1));
   }
 
   Future<http.Response> get() {
     return http.get(
       Uri.parse(ApiUrls.baseUrl + url),
-      headers: accessToken == null ? defaultHeader : {HttpHeaders.authorizationHeader: 'Bearer $accessToken'},
+      headers: accessToken == null ? null : {HttpHeaders.authorizationHeader: 'Bearer $accessToken'},
     ).timeout(const Duration(minutes: 1));
   }
 }

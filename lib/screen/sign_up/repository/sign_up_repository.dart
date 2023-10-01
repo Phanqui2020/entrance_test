@@ -13,23 +13,14 @@ class SignUpRepository {
   Future<bool> signUp({required SignUpRequestModel body}) async {
     bool isSuccess = false;
     try {
-      Future.delayed(
-          Duration.zero,
-              () => Get.dialog(const Center(child: CircularProgressIndicator()),
-              barrierDismissible: false));
       Apis request = Apis(url: ApiUrls.signUp, body: body.toJson());
       await request.post().then((value) {
         bool hasError = json.decode(value.body)["statusCode"] != null;
         if(!hasError){
-          UserModel responseModel = UserModel.fromJson(json.decode(value.body));
-          Get.back();
           isSuccess = true;
         }else {
           isSuccess = false;
         }
-      }).catchError((onError) {
-        print(onError);
-        return false;
       });
       return isSuccess;
     }catch (e){
