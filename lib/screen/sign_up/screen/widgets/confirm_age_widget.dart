@@ -1,6 +1,5 @@
+import 'package:entrance_test/Utils/app_text_style.dart';
 import 'package:flutter/material.dart';
-
-import '../../../Utils/app_text_style.dart';
 
 class ConfirmAgeWidget extends StatefulWidget {
   const ConfirmAgeWidget({Key? key, this.onChanged}) : super(key: key);

@@ -7,32 +7,44 @@ class InputFieldWidget extends StatefulWidget {
       {Key? key,
       required this.controller,
       required this.onTextChange,
-      required this.onValidationText,
-      required this.secureText})
+      this.onValidationText,
+      this.secureText = false,
+      required this.hintText})
       : super(key: key);
   final TextEditingController controller;
   final Function(String value) onTextChange;
-  final Function(String value) onValidationText;
+  final String? Function(String? value)? onValidationText;
   final bool secureText;
+  final String hintText;
 
   @override
   State<InputFieldWidget> createState() => _InputFieldWidgetState();
 }
 
 class _InputFieldWidgetState extends State<InputFieldWidget> {
-  bool isShowText = false;
+  late bool isShowText = false;
+
+  @override
+  void initState() {
+    isShowText = widget.secureText;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: TextField(
+      child: TextFormField(
+        obscureText: isShowText,
+        validator: widget.onValidationText,
         cursorColor: const Color(0xFF647FFF),
         style: AppTextStyle.bodyLarge,
         decoration: InputDecoration(
-          focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFF647FFF))
-          ),
+            labelStyle: AppTextStyle.bodySmall
+                .copyWith(color: Colors.white.withOpacity(0.5)),
+            labelText: widget.hintText,
+            focusedBorder: const UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFF647FFF))),
             suffixIcon: widget.secureText
                 ? IconButton(
                     icon: isShowText
