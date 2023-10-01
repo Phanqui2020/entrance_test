@@ -1,11 +1,8 @@
 import 'package:entrance_test/Utils/app_text_style.dart';
-import 'package:entrance_test/route/routes_map.dart';
-import 'package:entrance_test/screen/categories/screen/categories_screen.dart';
 import 'package:entrance_test/screen/sign_up/controller/sign_up_controller.dart';
 import 'package:entrance_test/screen/sign_up/screen/widgets/confirm_age_widget.dart';
 import 'package:entrance_test/screen/sign_up/screen/widgets/input_field_widget.dart';
 import 'package:entrance_test/screen/sign_up/screen/widgets/password_status_text_widget.dart';
-import 'package:entrance_test/screen/sign_up/screen/widgets/privacy_text_widget.dart';
 import 'package:entrance_test/widget/enable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -107,15 +104,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    PrivacyTextWidget(
-                      text:
-                          "By clicking Sign Up, you are indicating that you have read and agree to the Terms of Service and Privacy Policy",
-                      highlight: const ["Terms of Service", "Privacy Policy"],
-                      style: AppTextStyle.bodySmall
-                          .copyWith(color: Colors.white.withOpacity(0.5)),
-                      highlightStyle: AppTextStyle.bodySmall
-                          .copyWith(color: const Color(0xFF647FFF)),
-                    ),
+                    RichText(text: TextSpan(
+                      children: [
+                        TextSpan(text: "By clicking Sign Up, you are indicating that you have read and agree to the ", style: AppTextStyle.bodySmall.copyWith(color: Colors.white.withOpacity(0.5))),
+                        TextSpan(text: "Terms of Service ", style: AppTextStyle.bodySmall.copyWith(color: const Color(0xFF647FFF))),
+                        TextSpan(text: "and ", style: AppTextStyle.bodySmall.copyWith(color: Colors.white.withOpacity(0.5))),
+                        TextSpan(text: "Privacy Policy", style: AppTextStyle.bodySmall.copyWith(color: const Color(0xFF647FFF))),
+
+                      ]
+                    )),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
