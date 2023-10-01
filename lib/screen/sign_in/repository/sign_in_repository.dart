@@ -9,16 +9,16 @@ import 'package:get/get.dart';
 
 class SignInRepository {
   Future<SignInResponseModel?> signIn({required SignInRequestModel body}) async {
-    SignInResponseModel responseModel = SignInResponseModel();
+    SignInResponseModel? responseModel = SignInResponseModel();
     try {
-      Future.delayed(
-          Duration.zero,
-              () => Get.dialog(const Center(child: CircularProgressIndicator()),
-              barrierDismissible: false));
       Apis request = Apis(url: ApiUrls.signIn, body: body.toJson());
       await request.post().then((value) {
-        responseModel = SignInResponseModel.fromJson(json.decode(value.body));
-        Get.back();
+        bool hasError = json.decode(value.body)["statusCode"] != null;
+        if(!hasError){
+          responseModel = SignInResponseModel.fromJson(json.decode(value.body));
+        }else {
+          responseModel = null;
+        }
         return responseModel;
       }).catchError((onError) {
         print(onError);

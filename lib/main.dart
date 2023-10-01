@@ -1,4 +1,5 @@
 import 'package:entrance_test/Utils/device_dimension.dart';
+import 'package:entrance_test/route/routes_map.dart';
 import 'package:entrance_test/screen/sign_up/screen/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const SignUpScreen(),
+      initialRoute: '/sign_up',
+      getPages: routesMap,
     );
   }
 }

@@ -1,4 +1,6 @@
-import 'package:entrance_test/models/user_model.dart';
+import 'package:entrance_test/Utils/share_pref.dart';
+import 'package:entrance_test/Utils/share_pref_key.dart';
+import 'package:entrance_test/screen/categories/screen/categories_screen.dart';
 import 'package:entrance_test/screen/sign_in/model/sign_in_request_model.dart';
 import 'package:entrance_test/screen/sign_in/repository/sign_in_repository.dart';
 import 'package:entrance_test/screen/sign_up/model/sign_up_request_model.dart';
@@ -10,6 +12,7 @@ class SignUpController extends GetxController {
   final signupFormKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool isEnableNext = true;
 
   @override
   void onInit() {
@@ -57,6 +60,10 @@ class SignUpController extends GetxController {
 
   void login() async {
     if (signupFormKey.currentState!.validate()) {
+      Future.delayed(
+          Duration.zero,
+              () => Get.dialog(const Center(child: CircularProgressIndicator()),
+              barrierDismissible: false));
       await signUp(emailController.text, passwordController.text)
           .then((auth) async {
         if (auth) {
@@ -65,7 +72,14 @@ class SignUpController extends GetxController {
               body: SignInRequestModel(
                   email: emailController.text,
                   password: passwordController.text));
-          print(response);
+          if(response!= null){
+            await SharePref.put(SharePrefKey.ACCESS_TOKEN, response.accessToken);
+            await SharePref.put(SharePrefKey.REFRESH_TOKEN, response.accessToken);
+            Get.back();
+            Get.to(const CategoriesScreen());
+          }else {
+            Get.snackbar('Signing in...', 'Sign in Failed');
+          }
         } else {
           Get.snackbar('Signing up...', 'Sign Up Failed');
         }

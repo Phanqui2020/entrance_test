@@ -1,8 +1,10 @@
 import 'package:entrance_test/Utils/app_text_style.dart';
+import 'package:entrance_test/screen/categories/screen/categories_screen.dart';
 import 'package:entrance_test/screen/sign_up/controller/sign_up_controller.dart';
 import 'package:entrance_test/screen/sign_up/screen/widgets/confirm_age_widget.dart';
 import 'package:entrance_test/screen/sign_up/screen/widgets/input_field_widget.dart';
 import 'package:entrance_test/screen/sign_up/screen/widgets/privacy_text_widget.dart';
+import 'package:entrance_test/widget/enable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -104,18 +106,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 .copyWith(fontWeight: FontWeight.w500),
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () => _controller.login(),
-                          child: Container(
-                            padding: const EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border:
-                                    Border.all(color: const Color(0xFF647FFF))),
-                            child: const Image(
-                                image: AssetImage(
-                                    "assets/images/arrow_sign_in.png")),
-                          ),
+                        GetBuilder<SignUpController>(
+                          builder: (controller) {
+                            return EnableWidget(
+                              enable: true,
+                              child: GestureDetector(
+                                onTap: () => Get.to(const CategoriesScreen()),
+                                // onTap: () => _controller.login(),
+                                child: Container(
+                                  padding: const EdgeInsets.all(20),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border:
+                                      Border.all(color: const Color(0xFF647FFF))),
+                                  child: const Image(
+                                      image: AssetImage(
+                                          "assets/images/arrow_sign_in.png")),
+                                ),
+                              ),
+                            );
+                          },
                         )
                       ],
                     )
