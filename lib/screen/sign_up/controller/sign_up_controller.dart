@@ -2,7 +2,6 @@ import 'package:entrance_test/Utils/Regex.dart';
 import 'package:entrance_test/Utils/share_pref.dart';
 import 'package:entrance_test/Utils/share_pref_key.dart';
 import 'package:entrance_test/route/routes_map.dart';
-import 'package:entrance_test/screen/categories/screen/categories_screen.dart';
 import 'package:entrance_test/screen/sign_in/model/sign_in_request_model.dart';
 import 'package:entrance_test/screen/sign_in/repository/sign_in_repository.dart';
 import 'package:entrance_test/screen/sign_up/model/sign_up_request_model.dart';

@@ -1,7 +1,7 @@
 import 'package:entrance_test/Utils/app_text_style.dart';
 import 'package:entrance_test/Utils/device_dimension.dart';
 import 'package:entrance_test/screen/categories/controller/categories_controller.dart';
-import 'package:entrance_test/screen/categories/screen/widget/category_item_widget.dart';
+import 'package:entrance_test/screen/categories/page/widget/category_item_widget.dart';
 import 'package:entrance_test/widget/enable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
