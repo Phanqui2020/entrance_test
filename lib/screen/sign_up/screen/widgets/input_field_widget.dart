@@ -9,13 +9,14 @@ class InputFieldWidget extends StatefulWidget {
       required this.onTextChange,
       this.onValidationText,
       this.secureText = false,
-      required this.hintText})
+      required this.hintText, this.textInputType})
       : super(key: key);
   final TextEditingController controller;
   final Function(String value) onTextChange;
   final String? Function(String? value)? onValidationText;
   final bool secureText;
   final String hintText;
+  final TextInputType? textInputType;
 
   @override
   State<InputFieldWidget> createState() => _InputFieldWidgetState();
@@ -35,6 +36,7 @@ class _InputFieldWidgetState extends State<InputFieldWidget> {
     return SizedBox(
       width: double.infinity,
       child: TextFormField(
+        keyboardType: widget.textInputType,
         onChanged: widget.onTextChange,
         obscureText: isShowText,
         validator: widget.onValidationText,

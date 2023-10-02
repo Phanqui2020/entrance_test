@@ -128,8 +128,6 @@ class SignUpController extends GetxController {
             .signUp(body: SignUpRequestModel(email: email, password: password))
             .then((isSuccess) async {
           if (isSuccess) {
-            Get.snackbar(
-                'Signing up...', 'Sign up successfully, signing in...');
             final response = await SignInRepository().signIn(
                 body: SignInRequestModel(email: email, password: password));
             if (response != null) {
