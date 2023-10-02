@@ -10,8 +10,7 @@
 - Sign up, Sign in
 - Categories
 
-#Source code structure
-
+# Source code structure
 <img src="https://github.com/Phanqui2020/entrance_test/blob/master/assets/src/source_code_structure.PNG" width="250">
 
 # App UI
